@@ -16,8 +16,6 @@ keywords = ["now open", "schedule now", "now available", \
     "vaccines available", "appointments available", "register now", \
          "registration now open", "appointments now open", "book now", "now booking", "now providing", "health"]
 
-beta_emails = ['amchugh2@binghamton.edu']
-beta_phone = ['7322331213@vtext.com']
 email_addresses = []
 phone_numbers = []
 email_contents = []
@@ -47,7 +45,7 @@ def send_email(email_contents, date_time):
         email_addresses.append(user_info['A' + str(i+2)])
         i+=1
     email_contents.append(" \n ")
-    yag = yagmail.SMTP('vaccineupdatechecker@gmail.com', '7ch3urn5')
+    yag = yagmail.SMTP('EMAIL@gmail.com', 'PASSWORD')
     email_contents.append('Check the dashboard for links and more information: https://tinyurl.com/vaxxtracknj')
     yag.send(email_addresses, date_time + ' Vaccine Website Update', email_contents)
 
@@ -56,7 +54,7 @@ def send_SMS(dashboard, url):
     i = 0
     while(dashboard['A' + str(i+2)] != ""):
         if url == dashboard['C' + str(i+2)]:
-            yag = yagmail.SMTP('vaccineupdatechecker@gmail.com', '7ch3urn5')
+            yag = yagmail.SMTP('EMAIL@gmail.com', 'PASSWORD')
             text = 'There has been a change in the ' + dashboard['A' + str(i+2)] + \
                  ' vaccine website. Check the dashboard for more information: https://tinyurl.com/vaxxtracknj'
             yag.send(phone_numbers, "", text)
@@ -159,15 +157,15 @@ def check_websites(dashboard, urls, keywords_sheet):
 
 def main():
     # Dashboard
-    ss = ezsheets.Spreadsheet("1_lc_7eaeo2DF_BhIaXvJEEYFzZwunzhUR7nlfSceZvo")
+    ss = ezsheets.Spreadsheet("SS")
     dashboard = ss[0]
 
     # User Information
-    ss2 = ezsheets.Spreadsheet('1Kbqh0S5Ohnm1JycrDVSYLhq7379eLLHvq5tl7WXp8Vo')
+    ss2 = ezsheets.Spreadsheet('SS')
     user_info = ss2[0] # first sheet
 
     # Keyword checker
-    ss3 = ezsheets.Spreadsheet('1DEhpTB6eUwLVtZ45oNzr6UWi6C2_TyZUlfJk-5B7t6Y')
+    ss3 = ezsheets.Spreadsheet('SS')
     keywords_sheet = ss3[0]
 
     # Get URLS
